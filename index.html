@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>遇見濟州｜韓國的夏威夷，海島療癒之旅</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- 變數設定 (可以這裡修改顏色) --- */
+        :root {
+            --primary-color: #FF7F00; /* 濟州柑橘橘 */
+            --secondary-color: #0077BE; /* 濟州海洋藍 */
+            --text-dark: #333333;
+            --text-light: #666666;
+            --bg-light: #f9f9f9;
+            --white: #ffffff;
+        }
+
+        /* --- 基礎設定 --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* --- 導覽列 --- */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .btn-nav {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+        }
+
+        /* --- Hero Section (首屏) --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1535189043414-47a3c49a0bed?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 1rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: transform 0.3s, background 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 127, 0, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            background-color: #e06f00;
+        }
+
+        /* --- 通用區塊設定 --- */
+        section {
+            padding: 5rem 10%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* --- 特色區塊 (Why Jeju) --- */
+        .features {
+            background-color: var(--white);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+        }
+
+        /* --- 景點卡片區塊 --- */
+        .attractions {
+            background-color: var(--bg-light);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-body h3 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- 美食區塊 --- */
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .food-item {
+            display: flex;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+
+        .food-img {
+            width: 120px;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .food-info {
+            padding: 1rem;
+            flex: 1;
+        }
+
+        /* --- 行程時間軸 --- */
+        .itinerary {
+            background-color: var(--bg-light);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            padding: 20px 30px;
+            position: relative;
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .day-badge {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        /* --- CTA Footer --- */
+        .footer-cta {
+            background: linear-gradient(135deg, #333, #1a1a1a);
+            color: white;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+
+        .footer-cta h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-box {
+            max-width: 500px;
+            margin: 2rem auto;
+            display: flex;
+            gap: 10px;
+        }
+
+        .form-box input {
+            flex: 1;
+            padding: 1rem;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .form-box button {
+            padding: 1rem 2rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .copyright {
+            margin-top: 3rem;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        /* --- 手機版調整 --- */
+        @media (max-width: 768px) {
+            header { padding: 1rem; }
+            nav { display: none; } /* 簡單隱藏選單 */
+            .hero-content h1 { font-size: 2.5rem; }
+            .food-grid { grid-template-columns: 1fr; }
+            .form-box { flex-direction: column; }
+            section { padding: 3rem 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><i class="fas fa-plane-departure"></i> 遇見<span>濟州</span></div>
+        <nav>
+            <ul>
+                <li><a href="#features">特色</a></li>
+                <li><a href="#attractions">景點</a></li>
+                <li><a href="#food">美食</a></li>
+                <li><a href="#cta" class="btn-nav">立即預約</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>逃離日常，擁抱蔚藍</h1>
+            <p>45分鐘飛行，直達 UNESCO 世界自然遺產。火山、大海、橘子園，您的海島療癒之旅。</p>
+            <a href="#cta" class="cta-button">查看精選行程</a>
+        </div>
+    </section>
+
+    <section id="features">
+        <h2 class="section-title">為什麼選擇濟州島？</h2>
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-mountain"></i></div>
+                <h3>自然奇觀</h3>
+                <p>擁有漢拏山、城山日出峰等世界自然遺產，隨手一拍都是大片。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-utensils"></i></div>
+                <h3>美食天堂</h3>
+                <p>肥美的黑豬肉燒烤與新鮮海產，絕對滿足您的味蕾。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-coffee"></i></div>
+                <h3>絕美咖啡廳</h3>
+                <p>全韓國最密集的特色咖啡廳，看著大海發呆是最棒的行程。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><i class="fas fa-passport"></i></div>
+                <h3>免簽說走就走</h3>
+                <p>台灣/香港旅客持護照可免簽證入境，隨時開啟度假模式。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="attractions" class="attractions">
+        <h2 class="section-title">必訪熱門景點</h2>
+        <div class="grid-container">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1548115184-bc6544d06a58?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="城山日出峰" class="card-img">
+                <div class="card-body">
+                    <h3>城山日出峰</h3>
+                    <p>巨大的皇冠狀火山口，是欣賞海上日出的最佳地點，壯觀景色令人屏息。</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1616422323382-74d30623be3f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="牛島" class="card-img">
+                <div class="card-body">
+                    <h3>牛島 (Udo)</h3>
+                    <p>搭船15分鐘可達，必吃花生冰淇淋，騎著單車環島吹海風。</p>
+                </div>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1575883833860-256df2e23277?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="涯月邑" class="card-img">
+                <div class="card-body">
+                    <h3>涯月邑咖啡街</h3>
+                    <p>絕美的夕陽海岸線，網紅咖啡廳林立，是年輕人最愛的打卡聖地。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="food">
+        <h2 class="section-title">舌尖上的濟州</h2>
+        <div class="food-grid">
+            <div class="food-item">
+                <img src="https://images.unsplash.com/photo-1596700589255-b4637651c6b1?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="黑豬肉" class="food-img">
+                <div class="food-info">
+                    <h3>黑豬肉燒烤</h3>
+                    <p>肉質Q彈多汁，炭火烤過後沾上鯷魚醬，風味一絕。</p>
+                </div>
+            </div>
+            <div class="food-item">
+                <img src="https://images.unsplash.com/photo-1552611052-33e04de081de?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="海鮮鍋" class="food-img">
+                <div class="food-info">
+                    <h3>辣燉帶魚</h3>
+                    <p>整條長長的銀帶魚放入辣湯燉煮，鮮辣開胃的配飯神器。</p>
+                </div>
+            </div>
+            <div class="food-item">
+                <img src="https://plus.unsplash.com/premium_photo-1669261899144-839599587a8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="鮑魚飯捲" class="food-img">
+                <div class="food-info">
+                    <h3>鮑魚紫菜飯捲</h3>
+                    <p>IG 打卡名物，方塊狀的飯捲，口感香氣十足。</p>
+                </div>
+            </div>
+            <div class="food-item">
+                <img src="https://images.unsplash.com/photo-1550186936-e047466542f7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="漢拏山橘子" class="food-img">
+                <div class="food-info">
+                    <h3>漢拏山橘子甜點</h3>
+                    <p>酸甜適中，果汁、巧克力、冰淇淋等多種選擇。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="itinerary" class="itinerary">
+        <h2 class="section-title">經典 4 天 3 夜 行程</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <span class="day-badge">Day 1</span>
+                <h3>抵達濟州 → 龍頭岩</h3>
+                <p>感受海島第一口空氣，晚餐直奔黑豬肉一條街大口吃肉。</p>
+            </div>
+            <div class="timeline-item">
+                <span class="day-badge">Day 2</span>
+                <h3>東部探險</h3>
+                <p>早起攀登城山日出峰，下午搭船前往牛島騎單車，晚上參觀光之碉堡。</p>
+            </div>
+            <div class="timeline-item">
+                <span class="day-badge">Day 3</span>
+                <h3>南部與浪漫西部</h3>
+                <p>探訪泰迪熊博物館與山茶花之丘，傍晚在涯月邑喝咖啡看夕陽。</p>
+            </div>
+            <div class="timeline-item">
+                <span class="day-badge">Day 4</span>
+                <h3>滿載而歸</h3>
+                <p>東門市場採買伴手禮，機場免稅店最後衝刺，帶著美好回憶返家。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="footer-cta">
+        <h2>準備好出發了嗎？</h2>
+        <p>限時優惠：預訂本月行程，贈送 4G 上網 SIM 卡一張！</p>
+        
+        <form class="form-box" onsubmit="event.preventDefault(); alert('感謝您的諮詢！我們會盡快聯繫您。');">
+            <input type="email" placeholder="請輸入您的 Email" required>
+            <button type="submit">索取免費手冊</button>
+        </form>
+
+        <div class="copyright">
+            <p>Copyright © 2026 濟州島旅遊推廣中心 All Rights Reserved.</p>
+        </div>
+    </section>
+
+</body>
+</html>
